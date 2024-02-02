@@ -1,0 +1,128 @@
+h1,h2,h3,h4,h5,h6 
+{
+    margin: 0%;
+}
+
+img 
+{
+  width: 100% !important;
+  height: 100% !important;
+}
+.header 
+{
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.373);
+}
+.logo 
+{
+    width: 200px;
+    height: 100px;
+}
+.ico span 
+{
+    font-size: 25px;
+}
+
+.src 
+{
+    width: 300px;
+    height: 40px;
+    outline: none;
+    background-color: #F0F5FF;
+    padding: 5px 10px;
+    border: none;
+}
+button 
+{
+    position: relative;
+    top: 4px;
+    border: none;
+    font-size: 25px;
+    background-color: #F0F5FF;
+}
+.ic 
+{
+    position: relative;
+    top: -5px;
+}
+.bg 
+{
+    background-color: #F1F3F6;
+}
+.white
+{
+    background-color: white;
+}
+.title 
+{
+    border-bottom: 1px solid #ddd;
+}
+.title h4 
+{
+    font-size: 18px;
+}
+.cato h6 
+{
+    font-size: 12px;
+}
+ul 
+{
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style-type: none;
+}
+a{
+    text-decoration: none;
+    color: black;
+    font-weight: 600;
+}
+.pro-tit
+{
+    font-size: 20px;
+    background-color: transparent;
+    text-align: left;
+}
+.price 
+{
+    font-size: 20px;
+    font-weight: 600;
+}
+.pro-box 
+{
+    border-bottom: 1px solid #ddd;
+}
+.bold
+{
+    font-weight: 600;
+} 
+.rate span
+{
+    background-color: #388E3C;
+    border-radius: 5px;
+    padding: 2px 5px;
+    color: white;
+}
+.st 
+{
+    position: relative;
+    top: -2px;
+    font-size: 10px;
+}
+.w-10   
+{
+    max-width: 15%;
+    max-height: 350px;
+}
+.b1 
+{
+    margin: 5px 5px;
+    border: 1px solid black;
+    object-fit: cover;
+}
+.padding
+{
+    padding: 20px;
+}
+.info-title 
+{
+    font-size: 25px;
+}
