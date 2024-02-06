@@ -9,9 +9,13 @@ function Cart() {
 
     let arr = useSelector((state) => state.counter.data);
     let dish = useDispatch();
+    let sum=0, data=0;
 
-    let incre = (ele) => {
-        dish(increment(ele));
+    let incre = (el) => {
+        dish(increment(el));
+    }
+    let decre = (el) => {
+        dish(decrement(el));
     }
     return (
         <>
@@ -30,15 +34,19 @@ function Cart() {
                 <tbody>
                     {
                         arr.map((ele, ind) => {
+                            data=(ele.price - ((ele.price * ele.discountPercentage) / 100)) * ele.qty;
+                            sum += data;
+                            console.log("data=",data);
+                            console.log("sum=",sum);
                             return (
                                 <tr>
                                     <td>{ele.id}</td>
                                     <td>{ele.title}</td>
                                     <td><img src={ele.thumbnail} className="product" /></td>
                                     <td>{ele.price}</td>
-                                    <td><button className="tr-btn" onClick={() => { incre(ele) }}>+</button> {ele.qty} <button className="tr-btn">-</button></td>
+                                    <td><button className="tr-btn" onClick={() => { incre(ele) }}>+</button> {ele.qty} <button className="tr-btn" onClick={()=>{ decre(ele) }}>-</button></td>
                                     <td>{ele.price * ele.qty}</td>
-                                    <td>{ele.price-((ele.price*ele.discountPercentage)/100)}</td>
+                                    <td>{data}</td>
                                 </tr>
                             )
                         })
@@ -46,7 +54,7 @@ function Cart() {
                     <tr>
                         <td colSpan={5}></td>
                         <td>Bill:</td>
-                        <td></td>
+                        <td>{sum}</td>
                     </tr>
                 </tbody>
             </Table>
