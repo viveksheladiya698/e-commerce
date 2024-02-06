@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import { FaStar } from "react-icons/fa";
+import { Link } from 'react-router-dom';
 
 function Product(props) {
 
@@ -25,11 +26,11 @@ function Product(props) {
   }, []);
   useEffect(() => {
 
-    axios.get('https://dummyjson.com/products?limit=100')
+    axios.get('https://dummyjson.com/products')
       .then(function (respons) {
         setpro(respons.data.products);
         settmp(respons.data.products);
-        props.setdt(respons.data.products);
+        props.setdata(respons.data.products);
       })
       .catch(function (error) {
         console.log(error);
@@ -37,18 +38,17 @@ function Product(props) {
 
   }, []);
 
-  useEffect(() => {
-
-    if (props.up) {
-      setpro(props.up);
+  useEffect(()=>{
+    if(props.search != null)
+    {
+      setpro(props.search);
     }
-    else {
+    else
+    {
       setpro(tmp);
     }
 
-  }, [props.up])
-
-
+  },[props.search]);
 
   let filtr = (d) => {
     let a = [];
@@ -58,11 +58,6 @@ function Product(props) {
     setpro(a);
   }
 
-  let val=(al)=>{
-
-    props.seto(al);
-    props.id(al.id)
-  }
 
   return (
     <div className="produc bg">
@@ -100,42 +95,44 @@ function Product(props) {
                   {
                     pro.map((el, i) => {
                       return (
-                        <div className="pro-box p-3" onClick={()=>{val(el)}} key={i}>
-                          <div className="par">
-                            <Row>
-                              <Col xl={5}>
-                                <div className="img-bx">
-                                  <img src={el.thumbnail} className='w-100 object-fit-cover'></img>
-                                </div>
-                              </Col>
-                              <Col xl={7}>
-                                <div className="info-box">
-                                  <div className="tit d-flex">
-                                    <div className="tiat w-75">
-                                      <span className='pro-tit bold'>{el.title} ({el.description})</span>
+                        <Link to={`/items/${el.id}`} key={i}>
+                          <div className="pro-box p-3" key={i}>
+                            <div className="par">
+                              <Row>
+                                <Col xl={5}>
+                                  <div className="img-bx">
+                                    <img src={el.thumbnail} className='w-100 object-fit-cover'></img>
+                                  </div>
+                                </Col>
+                                <Col xl={7}>
+                                  <div className="info-box">
+                                    <div className="tit d-flex">
+                                      <div className="tiat w-75">
+                                        <span className='pro-tit bold'>{el.title} ({el.description})</span>
+                                      </div>
+                                      <div className="pric w-25">
+                                        <span className='price'>{el.price}</span><br></br>
+                                        <span className='bold'>{el.discountPercentage} %Off</span>
+                                      </div>
                                     </div>
-                                    <div className="pric w-25">
-                                      <span className='price'>{el.price}</span><br></br>
-                                      <span className='bold'>{el.discountPercentage} %Off</span>
+                                    <div className="review">
+                                      <div className="rate mt-2">
+                                        <span>{el.rating} <FaStar className='st' /></span>
+                                      </div>
+                                      <div className="feature mt-3">
+                                        <ul className='bold'>
+                                          <li className='pb-2'>Brand: {el.brand}</li>
+                                          <li className='pb-2'>Category: {el.category}</li>
+                                          <li className='pb-2'>Remain Stock: {el.stock}</li>
+                                        </ul>
+                                      </div>
                                     </div>
                                   </div>
-                                  <div className="review">
-                                    <div className="rate mt-2">
-                                      <span>{el.rating} <FaStar className='st' /></span>
-                                    </div>
-                                    <div className="feature mt-3">
-                                      <ul className='bold'>
-                                        <li className='pb-2'>Brand: {el.brand}</li>
-                                        <li className='pb-2'>Category: {el.category}</li>
-                                        <li className='pb-2'>Remain Stock: {el.stock}</li>
-                                      </ul>
-                                    </div>
-                                  </div>
-                                </div>
-                              </Col>
-                            </Row>
+                                </Col>
+                              </Row>
+                            </div>
                           </div>
-                        </div>
+                        </Link>
                       )
                     })
                   }

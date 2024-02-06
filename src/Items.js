@@ -3,48 +3,53 @@ import './App.css';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import { FaStar } from "react-icons/fa";
+import { BsCart3 } from "react-icons/bs";
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
+import Header from './Header';
+import { UseDispatch, useDispatch } from 'react-redux';
+import { Cartdata } from './Store/Counter/CounterSlice';
 
 
 function Items(props) {
 
-    let [pt, setpt] = useState(0);
+    let dispach=useDispatch();
+
     let [itemdata, setitemdata] = useState(null);
     let [tmp, settmp] = useState();
-    let i;
+    let {id} =useParams();
 
     useEffect(() => {
-        axios.get(`https://dummyjson.com/products/${props.id}`)
+        axios.get(`https://dummyjson.com/products/${id}`)
             .then(function (respons) {
-                console.log(respons.data);
                 setitemdata(respons.data);
                 settmp(respons.data.thumbnail);
             })
             .catch(function (error) {
                 console.log(error);
             })
-    }, [props.id])
-    console.log("Call id=", props.id);
+    }, [id]);
 
     return (
         itemdata != null && <>
+        <Header></Header>
             <div className="mainbox">
                 <Container fluid>
                     <Row>
                         <Col xl={6}>
                             <div className="img-pat d-flex my-2">
-                                <div className="line w-10">
+                                <div className="line w-25">
                                     {
                                         itemdata.images.map((el, i) => {
                                             return (
-                                                <div className="img-bx" key={i}>
+                                                <div className="img-bx m-3" key={i}>
                                                     <img src={el} onClick={() => { settmp(el)}}></img>
                                                 </div>
                                             )
                                         })
                                     }
                                 </div>
-                                <div className="img">
+                                <div className="img w-100">
                                     <img src={tmp}></img>
                                 </div>
                             </div>
@@ -72,6 +77,9 @@ function Items(props) {
                                                 <li className='pb-2'>Remain Stock: {itemdata.stock}</li>
                                             </ul>
                                         </div>
+                                    </div>
+                                    <div className="shop">
+                                        <button onClick={()=>{dispach(Cartdata(itemdata))}}>Add to Cart <BsCart3 className='iac'/></button>
                                     </div>
                                 </div>
                             </div>
