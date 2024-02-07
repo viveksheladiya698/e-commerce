@@ -8,13 +8,13 @@ import { increment, decrement } from "./Store/Counter/CounterSlice";
 function Cart() {
 
     let arr = useSelector((state) => state.counter.data);
+    let bill = useSelector((state) => state.counter.bill);
     let dish = useDispatch();
-    let sum=0, data=0;
 
     let incre = (el) => {
         dish(increment(el));
     }
-    let decre = (el) => {
+    let decre = (el,id) => {
         dish(decrement(el));
     }
     return (
@@ -28,33 +28,31 @@ function Cart() {
                         <th>Product Price</th>
                         <th>Product Quality</th>
                         <th>Total Price</th>
+                        <th>discount Price</th>
                         <th>Total Price with Disscount</th>
                     </tr>
                 </thead>
                 <tbody>
                     {
                         arr.map((ele, ind) => {
-                            data=(ele.price - ((ele.price * ele.discountPercentage) / 100)) * ele.qty;
-                            sum += data;
-                            console.log("data=",data);
-                            console.log("sum=",sum);
                             return (
                                 <tr>
                                     <td>{ele.id}</td>
                                     <td>{ele.title}</td>
                                     <td><img src={ele.thumbnail} className="product" /></td>
                                     <td>{ele.price}</td>
-                                    <td><button className="tr-btn" onClick={() => { incre(ele) }}>+</button> {ele.qty} <button className="tr-btn" onClick={()=>{ decre(ele) }}>-</button></td>
+                                    <td><button className="tr-btn" onClick={() => { incre(ele.id) }}>+</button> {ele.qty} <button className="tr-btn" onClick={()=>{ decre(ele.id) }}>-</button></td>
                                     <td>{ele.price * ele.qty}</td>
-                                    <td>{data}</td>
+                                    <td>{ele.disscount}</td>
+                                    <td>{ele.disscountprice}</td>
                                 </tr>
                             )
                         })
                     }
                     <tr>
-                        <td colSpan={5}></td>
+                        <td colSpan={6}></td>
                         <td>Bill:</td>
-                        <td>{sum}</td>
+                        <td>{bill}</td>
                     </tr>
                 </tbody>
             </Table>
